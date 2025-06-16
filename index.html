@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>School Attendance Track</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Animated background elements */
+        .bg-decoration {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            z-index: 0;
+        }
+
+        .floating-element {
+            position: absolute;
+            opacity: 0.1;
+            animation: float 6s ease-in-out infinite;
+        }
+
+        .floating-element:nth-child(1) {
+            top: 10%;
+            left: 10%;
+            font-size: 60px;
+            animation-delay: 0s;
+        }
+
+        .floating-element:nth-child(2) {
+            top: 60%;
+            right: 15%;
+            font-size: 80px;
+            animation-delay: 2s;
+        }
+
+        .floating-element:nth-child(3) {
+            bottom: 20%;
+            left: 20%;
+            font-size: 50px;
+            animation-delay: 4s;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-20px) rotate(5deg); }
+        }
+
+        .header {
+            position: absolute;
+            top: 50px;
+            right: 80px;
+            z-index: 10;
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .title {
+            text-align: right;
+            font-weight: bold;
+            line-height: 1.1;
+        }
+
+        .title-main {
+            font-size: 48px;
+            color: #ff6b6b;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .title-sub {
+            font-size: 40px;
+            color: white;
+            font-style: italic;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .icon {
+            width: 120px;
+            height: 120px;
+            font-size: 80px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            filter: drop-shadow(2px 2px 4px rgba(0,0,0,0.3));
+        }
+
+        .main-content {
+            display: flex;
+            gap: 30px;
+            z-index: 10;
+            margin-top: 80px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .stat-card {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            padding: 40px;
+            text-align: center;
+            min-width: 280px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255,255,255,0.2);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 25px 50px rgba(0,0,0,0.25);
+        }
+
+        .stat-title {
+            font-size: 24px;
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+                .stat-number {
+            font-size: 72px;
+            font-weight: bold;
+            margin-bottom: 15px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .days-total {
+            color: #4285f4;
+        }
+
+        .days-missed {
+            color: #ea4335;
+        }
+
+        .stat-subtitle {
+            font-size: 16px;
+            color: #666;
+            font-weight: 500;
+        }
+
+        .subtitle-link {
+            color: #4285f4;
+            text-decoration: none;
+            cursor: pointer;
+            transition: color 0.3s ease;
+        }
+
+        .subtitle-link:hover {
+            color: #1a73e8;
+            text-decoration: underline;
+        }
+
+        /* Responsive design */
+        @media (max-width: 768px) {
+            .header {
+                top: 30px;
+                right: 30px;
+                left: 30px;
+                text-align: center;
+                position: relative;
+            }
+
+            .title-main {
+                font-size: 36px;
+            }
+
+            .title-sub {
+                font-size: 30px;
+            }
+
+            .icon {
+                width: 80px;
+                height: 80px;
+                font-size: 60px;
+            }
+
+            .main-content {
+                flex-direction: column;
+                gap: 20px;
+                margin-top: 40px;
+                padding: 0 20px;
+            }
+
+            .stat-card {
+                min-width: auto;
+                padding: 30px;
+            }
+
+            .stat-number {
+                font-size: 60px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="bg-decoration">
+        <div class="floating-element">📚</div>
+        <div class="floating-element">🎒</div>
+        <div class="floating-element">✏️</div>
+    </div>
+
+    <div class="header">
+        <div class="title">
+            <div class="title-main">SCHOOL</div>
+            <div class="title-sub">ATTENDANCE</div>
+            <div class="title-sub">TRACK</div>
+        </div>
+        <div class="icon">📊</div>
+    </div>
+
+    <div class="main-content">
+        <div class="stat-card">
+            <div class="stat-title">Weeks Elapsed</div>
+            <div class="stat-number days-total" id="weeksElapsed">1 Day/ 0.1 Weeks</div>
+            <div class="stat-subtitle">Since Week 8, Term 2</div>
+        </div>
+
+        <div class="stat-card">
+            <div class="stat-title">Days Missed</div>
+            <div class="stat-number days-missed" id="missedDays">1</div>
+            <div class="stat-subtitle">
+                <a href="#" class="subtitle-link" onclick="showMissedDays()">See list below</a>
+            </div>
+        </div>
+
+        <div class="stat-card">
+            <div class="stat-title">Total Days Of School</div>
+            <div class="stat-number" style="color: #34a853;" id="totalSchoolDays">200</div>
+            <div class="stat-subtitle">In academic year</div>
+        </div>
+    </div>
+
+    <script>
+        function showMissedDays() {
+            alert('Missed Days List:\n\n• June 16 - Wasnt there at all.\n• June 17 - Probably wont be there');
+        }
+
+        // Update the counter dynamically based on school year progress
+        function updateCounters() {
+            // No longer auto-updating - all values are now user-editable
+        }
+
+        // Update counters when page loads
+        updateCounters();
+    </script>
+</body>
+</html>
